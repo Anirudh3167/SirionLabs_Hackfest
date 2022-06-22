@@ -5,7 +5,7 @@ def minutes(hours):
     return hours*60
 
 def hours(minutes):
-    return minutes*60
+    return minutes/60
 
 def datasets_for_hours(datasets_needed):                                                                 #this is for 24hrs(i.e. tasks for one single day)
     i = 1
