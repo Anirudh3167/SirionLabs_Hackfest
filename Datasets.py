@@ -84,6 +84,14 @@ def datasets_for_datetime(datasets_needed):
 
 
 #main program
-datasets = int(input("enter the number of datasets needed:"))
-datasets_for_hours(datasets)
-datasets_for_datetime(datasets)
+print("***************************")
+print("* 1. ONE DAY   SCHEDULER  *")
+print("* 2. ONE MONTH SCHEDULER  *")
+print("***************************")
+ask = input("Which dataset do you need:")
+if ask == '1' or ask.upper() == 'ONE DAY SCHEDULER':
+    datasets = int(input("enter the number of datasets needed:"))
+    datasets_for_hours(datasets)
+elif ask == '2' or ask.upper() == 'ONE MONTH SCHEDULER':
+    datasets = int(input("enter the number of datasets needed:"))
+    datasets_for_datetime(datasets)
