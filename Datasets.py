@@ -1,5 +1,6 @@
 import random
 import datetime as dt
+import csv
 
 def minutes(hours):
     return hours*60
@@ -12,11 +13,24 @@ def hours(minutes):
 def random_generator(first_limit,last_limit):
     return random.randint(first_limit,last_limit)
 
+def csv_converter(data,fields):
+    filename = input("Enter the name of the csv file you want to create:")
+    if filename[-4:] != '.csv':
+        filename = filename+".csv"
+    with open(filename,'w') as file:
+        csvwriter = csv.writer(file)
+        csvwriter.writerow(fields)
+        csvwriter.writerows(data)
+    return
+
 def datasets_for_hours(datasets_needed):                                                                 #this is for 24hrs(i.e. tasks for one single day)
     i = 1
     print("===================================================================")
     print("DATASETS IN HOURS FORMAT FOR ONE DAY")
     print("===================================================================")
+    a = dt.date(2022,6,22)
+    fields = ['s_no','job','value','capacity','frequency','start_time','end_time','execution_time','desired_time']
+    data   = []
     while (i<datasets_needed+1):
         job='job '+str(i)
         frequency = random_generator(1,10)
@@ -41,14 +55,21 @@ def datasets_for_hours(datasets_needed):                                        
           print("frequency:-"+str(frequency))
           print("value:-"+str(value))
           print("capacity:-"+str(capacity))
-        i = i+1
-    return
+          starttime = dt.datetime(a.year,a.month,a.day,int(start_time/60),(start_time%60))
+          endtime = dt.datetime(a.year,a.month,a.day,int(end_time/60),(endt_time%60))
+          executiontime = dt.datetime(a.year,a.month,a.day,int(execution_time/60),(execution_time%60))
+          desiredtime = dt.datetime(a.year,a.month,a.day,int(desired_time/60),(desired_time%60))
+          data.append([s_no,job,value,capacity,frequency,starttime,endtime,executiontime,desiredtime])
+        i = i+1re
+    return  data,fields
 
 def datasets_for_datetime(datasets_needed):
     i = 1
     print("===================================================================")
     print("DATASETS IN DATETIME FORMAT FOR ONE MINUTE")
     print("===================================================================")
+    fields = ['s_no','job','value','capacity','frequency','start_time','end_time','execution_time','desired_time']
+    data   = []
     while (i<datasets_needed + 1):                                                       #This is for one month
       s_no = i
       job = "job"+str(i)
@@ -79,8 +100,9 @@ def datasets_for_datetime(datasets_needed):
           print("frequency:-"+str(frequency))
           print("value:-"+str(value))
           print("capacity:-"+str(capacity))
+          data.append([s_no,job,value,capacity,frequency,start_datetime,end_datetime,execution_datetime,desired_datetime])
       i = i+1
-    return
+    return  data,fields
 
 
 #main program
@@ -91,7 +113,12 @@ print("***************************")
 ask = input("Which dataset do you need:")
 if ask == '1' or ask.upper() == 'ONE DAY SCHEDULER':
     datasets = int(input("enter the number of datasets needed:"))
-    datasets_for_hours(datasets)
+    result = datasets_for_hours(datasets)
+    csv_converter(result[0],result[1])
 elif ask == '2' or ask.upper() == 'ONE MONTH SCHEDULER':
     datasets = int(input("enter the number of datasets needed:"))
-    datasets_for_datetime(datasets)
+    result = datasets_for_datetime(datasets)
+    csv_converter(result[0],result[1])
+else:
+    print("Invalid choice")
+    exit()
