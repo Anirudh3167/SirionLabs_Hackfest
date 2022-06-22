@@ -22,7 +22,7 @@ def Manual_Input():
       print("This entry is invalid. please try again")
       i = i - 1
     else:
-      row.append([s_no,job,value,capacity,frequency,start_time,end_time,execution_time,desired_time])
+      data.append([s_no,job,value,capacity,frequency,start_time,end_time,execution_time,desired_time])
  return
 
 def CSV Input(filename):
