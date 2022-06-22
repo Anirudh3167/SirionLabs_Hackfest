@@ -57,10 +57,13 @@ def datasets_for_datetime(datasets_needed):
       capacity = random_generator(1,80)
       start_datetime = dt.datetime(2022,7,random_generator(1,30),random_generator(1,23),random_generator(0,59))
       end_datetime = dt.datetime(2022,7,random_generator(1,30),random_generator(1,23),random_generator(0,59))
-      execution_datetime = dt.datetime(2022,7,random_generator(1,30),random_generator(1,23),random_generator(0,59))
+      execution_datetime = dt.time(2022,7,random_generator(1,30),random_generator(1,23),random_generator(0,59))
       desired_datetime = dt.datetime(2022,7,random_generator(1,30),random_generator(1,23),random_generator(0,59))
 
-      if   ((start_datetime.hour*60+start_datetime.minute) +(execution_datetime.hour*60+execution_datetime.minute) 
+    
+      if   (start_datetime.day > end_datetime.day) or (start_datetime.day > desired_datetime.day):  i = i-1
+      elif (desired_datetime.day > end_datetime.day) or (execution_datetime.day > start_datetime.day):  i = i-1
+      elif ((start_datetime.hour*60+start_datetime.minute) +(execution_datetime.hour*60+execution_datetime.minute) 
       > (end_datetime.hour*60+end_datetime.minute)):  i = i-1
       elif ((start_datetime.hour*60+start_datetime.minute)>(desired_datetime.hour*60+desired_datetime.minute)): i = i-1
       elif ((desired_datetime.hour*60+desired_datetime.minute) + 120 + 
