@@ -4,14 +4,34 @@ import datetime as dt
 import calendar
 
 def task_scheduler(data,fields):
-  sorted_data = []
+  #sorting as per start_datetime.
+  new_data = []
   for i in data:
-    if sorted_data == []:
-      sorted_data.append(i)
-    elif (i[6] >sorted_data[0][6]) or (i[6] == sorted_data[0][6]):
-      sorted_data.append(i)
-    elif i[6] < sorted_data[0][6]:
-      sorted_data.insert(0,i)
+    a = i[5]
+    for j in data:
+      if (a >j[5]) and (j not in new_data):  a=j[5]
+    for k in data:
+      if k[5] == a:
+        new_data.append(k)
+        
+  #sorting as per value.
+  value_sorting = []
+  for i in new_data:
+    same_date = []
+    date = i[5]
+    for j in data:
+      if (i[5] == j[5]) and (j not in value_sorting):  same_date.append(j)
+    for j in same_date:
+      a = j[2]
+      for k in same_date:
+        if (a>k[2]) and (k not in value_sorting): a=k[2]
+      for l in same_date:
+        if l[2] == a:
+          value_sorting.append(l)
+          
+  #delaying other tasks of low value at max capacity.
+  
+  #discarding tasks with more than desired_time to next schedule.
   
 
 def Manual_Input():
