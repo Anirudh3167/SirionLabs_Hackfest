@@ -3,6 +3,17 @@ import schedule
 import datetime as dt
 import calendar
 
+def task_scheduler(data,fields):
+  sorted_data = []
+  for i in data:
+    if sorted_data == []:
+      sorted_data.append(i)
+    elif (i[6] >sorted_data[0][6]) or (i[6] == sorted_data[0][6]):
+      sorted_data.append(i)
+    elif i[6] < sorted_data[0][6]:
+      sorted_data.insert(0,i)
+  
+
 def Manual_Input():
   fields = ['s_no','job','value','capacity','frequency','start_time','end_time','execution_time','desired_time']
   data   = []
@@ -23,9 +34,9 @@ def Manual_Input():
       i = i - 1
     else:
       data.append([s_no,job,value,capacity,frequency,start_time,end_time,execution_time,desired_time])
- return
+ return   data,fields
 
-def CSV Input(filename):
+def CSV_Input(filename):
   fields = []
   data   = []
   with open(filename,'r') as file:                                                 #assuming the directory is same
@@ -33,7 +44,7 @@ def CSV Input(filename):
        fields = next(csvreader)
        for row in csvreader:
             data.append(row)
-  return
+  return   data,fields
 
 #main program
 print("****************************")
@@ -42,10 +53,12 @@ print("*  2. CSV    Input         *")
 print("****************************")
 ask = input("Enter you choice:")
 if ask == '1' or ask.upper() == 'MANUAL INPUT':
-  Manual_Input()
+  result = Manual_Input()
+  task_scheduler(result[0],result[1])
 elif ask == '2' or ask.upper() == 'CSV INPUT':
   filename = input("enter the file name:")
-  CSV_Input(filename)
+  result = CSV_Input(filename)
+  task_scheduler(result[0],result[1])
 else:
   print("Invalid option")
   exit()
