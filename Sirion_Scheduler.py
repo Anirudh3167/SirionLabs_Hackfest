@@ -30,6 +30,8 @@ def task_scheduler(data,fields):
           value_sorting.append(l)
           
   #delaying other tasks of low value at max capacity.
+  #Use inspection method.  I.e. check for every 30mins.
+
   analyzer_data = []
   First_start_time = value_sorting[0][5]
   Last_start_time = value_sorting[-1][5]
@@ -50,11 +52,11 @@ def Manual_Input():
     value= int(input("Enter the value:"))
     capacity=int(input("Enter the capacity:"))
     frequency = int(input("Enter the frequency in hours:"))
-    print("Format:- YYYY,MM,DD,HH,MM")
-    start_time=dt.datetime(input("Enter the start time:"))
-    end_time= dt.datetime(input("Enter the end time:"))
-    execution_time=dt.datetime(input("Enter the execution time:"))
-    desired_time=dt.datetime(input("Enter the desired start time:"))
+    print("Format:- HH,MM")
+    start_time=dt.time(input("Enter the start time:"))
+    end_time= dt.time(input("Enter the end time:"))
+    execution_time=dt.time(input("Enter the execution time:"))
+    desired_time=dt.time(input("Enter the desired start time:"))
     if (capacity>80) or (value>100):
       print("This entry is invalid. please try again")
       i = i - 1
