@@ -30,9 +30,15 @@ def task_scheduler(data,fields):
           value_sorting.append(l)
           
   #delaying other tasks of low value at max capacity.
+  analyzer_data = []
+  First_start_time = value_sorting[0][5]
+  Last_start_time = value_sorting[-1][5]
+  for i in value_sorting():
+    if analyzer_data == []:
+      analyzer_data.append(i)
   
   #discarding tasks with more than desired_time to next schedule.
-  
+  return value_sorting
 
 def Manual_Input():
   fields = ['s_no','job','value','capacity','frequency','start_time','end_time','execution_time','desired_time']
